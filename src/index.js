@@ -5,7 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import App from './App';
-import SignInPage from './components/SignInPage';
+import LogInPage from './components/LogInPage';
 import SignUpPage from './components/SignUpPage';
 
 ReactDOM.render(
@@ -13,7 +13,7 @@ ReactDOM.render(
         <div>
             <Route exact path="/" component={App} />
             <Route path="/home" component={App} />
-            <Route path="/signin" component={SignInPage} />
+            <Route path="/login" component={LogInPage} />
             <Route path="/signup" component={SignUpPage} />
         </div>
     </Router>,

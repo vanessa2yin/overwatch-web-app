@@ -1,49 +1,50 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import {Link} from "react-router-dom";
 
 class SignUp extends Component {
     state = {
-        email: '',
-        password: '',
-        firstName: '',
-        lastName: '',
+        username: '',
+        password: ''
     };
-    handleChange = (e) => {
-        this.setState({
-            [e.target.id]: e.target.value
-        })
-    };
-    handleSubmit = (e) => {
+    handleSignIn(e) {
         e.preventDefault();
-        console.log(this.state);
-    };
+        let username = this.refs.username.value;
+        let password = this.refs.password.value;
+        this.props.onSignIn(username, password)
+    }
+
     render() {
         return (
             <div className="container">
-                <form className="white" onSubmit={this.handleSubmit}>
-                    <h5 className="grey-text text-darken-3">Sign Up</h5>
-                    <div className="input-field">
-                        <label htmlFor="email">Email</label>
-                        <input type="email" id='email' onChange={this.handleChange} />
-                    </div>
-                    <div className="input-field">
-                        <label htmlFor="password">Password</label>
-                        <input type="password" id='password' onChange={this.handleChange} />
-                    </div>
-                    <div className="input-field">
-                        <label htmlFor="firstName">First Name</label>
-                        <input type="text" id='firstName' onChange={this.handleChange} />
-                    </div>
-                    <div className="input-field">
-                        <label htmlFor="lastName">Last Name</label>
-                        <input type="text" id='lastName' onChange={this.handleChange} />
-                    </div>
-                    <div className="input-field">
-                        <button className="btn pink lighten-1 z-depth-0">Sign Up</button>
-                    </div>
-                </form>
+                <div className="text-lg-center"> Sign Up </div>
+                <Form>
+                    <Form.Group>
+                        <Form.Label>Enter a username</Form.Label>
+                        <Form.Control required type="username" id="username" ref="username" placeholder="Username" />
+                        <Form.Text className="text-muted">
+                            This will also be your name shown on the website.
+                        </Form.Text>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Enter new Password</Form.Label>
+                        <Form.Control required type="password" id="password" ref="password" placeholder="Password" />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Enter Password Again</Form.Label>
+                        <Form.Control required type="password" placeholder="Password" />
+                        <Form.Text className="text-muted">
+                            This should be the same password you entered above.
+                        </Form.Text>
+                    </Form.Group>
+                    <Link to="/home"><Button inline="true" className="mr-sm-2" variant="primary">Sign Up</Button></Link>
+                    <Link to="/login"><Button type="submit" onSubmit={this.handleSignIn.bind(this)} variant="outline-primary">Cancel</Button></Link>
+                </Form>
+
             </div>
         )
     }
 }
 
-export default SignUp
+export default SignUp;
