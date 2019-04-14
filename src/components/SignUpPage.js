@@ -17,31 +17,45 @@ class SignUp extends Component {
 
     render() {
         return (
-            <div className="container">
-                <div className="text-lg-center"> Sign Up </div>
-                <Form>
-                    <Form.Group>
-                        <Form.Label>Enter a username</Form.Label>
-                        <Form.Control required type="username" id="username" ref="username" placeholder="Username" />
-                        <Form.Text className="text-muted">
-                            This will also be your name shown on the website.
-                        </Form.Text>
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Enter new Password</Form.Label>
-                        <Form.Control required type="password" id="password" ref="password" placeholder="Password" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Enter Password Again</Form.Label>
-                        <Form.Control required type="password" placeholder="Password" />
-                        <Form.Text className="text-muted">
-                            This should be the same password you entered above.
-                        </Form.Text>
-                    </Form.Group>
-                    <Link to="/home"><Button inline="true" className="mr-sm-2" variant="primary">Sign Up</Button></Link>
-                    <Link to="/login"><Button type="submit" onSubmit={this.handleSignIn.bind(this)} variant="outline-primary">Cancel</Button></Link>
-                </Form>
-
+            <div>
+                <img src={require('../styles/web_logo.png')} className="logo"/>
+                <div className="pageContainer">
+                    <div className="title"> SIGN UP </div>
+                    <Form>
+                        <Form.Group>
+                            <Form.Label className="label">Enter a username</Form.Label>
+                            <Form.Control className="inputBox"
+                                          required type="username" id="username" ref="username" placeholder="Username" />
+                            <Form.Text className="text-muted">
+                                This will also be your name shown on the website.
+                            </Form.Text>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label className="label">Enter new Password</Form.Label>
+                            <Form.Control className="inputBox"
+                                          required type="password" id="password" ref="password" placeholder="Password" />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label className="darkLabel">Enter new Password Again</Form.Label>
+                            <Form.Control className="inputBox"
+                                          required type="password" placeholder="Password" />
+                            <Form.Text className="text-muted">
+                                This should be the same password you entered above.
+                            </Form.Text>
+                        </Form.Group>
+                        <Link to="/home">
+                            <Button className="buttons" variant="primary">
+                                Sign Up
+                            </Button>
+                        </Link>
+                        <Link to="/login">
+                            <Button className="buttons" type="submit" variant="outline-primary"
+                                    onSubmit={this.handleSignIn.bind(this)} >
+                                Cancel
+                            </Button>
+                        </Link>
+                    </Form>
+                </div>
             </div>
         )
     }

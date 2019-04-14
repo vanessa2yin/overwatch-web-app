@@ -1,0 +1,17 @@
+.heroPageTitle {
+    font-family: Impact;
+    font-size: 40px;
+    font-style: italic;
+    color: white;
+    margin: auto;
+    text-align: center;
+}
+
+.footer {
+    padding-top: 100px;
+    padding-bottom: 40px;
+    width: 60%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

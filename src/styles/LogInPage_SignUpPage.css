@@ -1,0 +1,55 @@
+.logo {
+    padding-top: 60px;
+    padding-bottom: 20px;
+    width: 60%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pageContainer {
+    margin: auto;
+    width: 60%;
+}
+
+.title {
+    font-family: Impact;
+    font-size: 40px;
+    font-style: italic;
+    color: white;
+    padding: 20px 0px;
+}
+
+.label {
+    color: white;
+    font-weight: lighter;
+}
+
+.darkLabel {
+    color: #8798c2;
+    font-weight: lighter;
+}
+
+.inputBox {
+    padding-left: 20px;
+    color: white;
+    font-weight: lighter;
+    border: none;
+    border-radius: 50px 15px;
+}
+
+.buttons {
+    float: inside;
+    font-weight: lighter;
+    width: 40%;
+    margin: 20px;
+    background-image: url('../styles/background_image.jpg');
+    border: none;
+    color: white;
+}
+
+.buttons:hover{
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+}

@@ -1,0 +1,16 @@
+.imageContainer {
+    padding: 20px 10px;
+    width: 90%;
+    margin: auto;
+}
+
+.img {
+    width: 160px;
+    margin: 10px;
+    border-radius: 50px 15px;
+}
+
+.img:hover {
+    /*background-color: #7b86b9;*/
+    background-image: url('./hero_button_hover_image.jpg');
+}

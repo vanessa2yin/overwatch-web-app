@@ -19,6 +19,9 @@
   color: white;
 }
 
+body, html {
+  background-image: url('./styles/background_image.jpg');
+}
 .App-link {
   color: #61dafb;
 }
