@@ -4,13 +4,14 @@ import HeroImageButtons from "./HeroImageButtons";
 import '../styles/AllHeroPage.css';
 
 class AllHeroPage extends Component {
+
     render() {
         return (
             <div>
                 <WebNavBar/>
                 <div className="heroPageTitle"> ALL HEROES </div>
                 <HeroImageButtons className="container"/>
-                <img src={require('../styles/footer_image.png')} className="footer"/>
+                <img src={require('../styles/footer_image.png')} className="footer" alt="footer"/>
             </div>
         );
     }

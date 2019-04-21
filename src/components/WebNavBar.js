@@ -3,15 +3,16 @@ import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Autocomplete from 'react-autocomplete';
 import { heroCategoryList } from '../const.js';
 import '../styles/WebNavBar.css';
+import fire from '../config/Fire';
 
 class WebNavBar extends Component {
     constructor(props) {
         super(props);
+        this.logout = this.logout.bind(this);
         this.state = {
             value: ''
         }
@@ -30,13 +31,24 @@ class WebNavBar extends Component {
         window.location.reload();
     }
 
+    logout() {
+        fire.auth().signOut().then((u) => {
+            this.props.history.push('/');
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
     render() {
+
+        // inputProps for the Autocomplete component
         const inputProps = {
             className: "autoComplete",
             placeholder: "Search hero (๑•̀ㅂ•́)و",
             value: this.state.value,
             onChange: this.onChange
         };
+
         return (
             <Navbar variant="dark" expand="lg">
                 <Navbar.Brand href="/">
@@ -77,7 +89,7 @@ class WebNavBar extends Component {
                             <i className="fas fa-search"/>
                         </Button>
                     </Form>
-                    <Link to="/login"><Button variant="outline-light">Log Out</Button></Link>
+                    <Button variant="outline-light" onClick={this.logout}>Log Out</Button>
                 </Navbar.Collapse>
             </Navbar>
         );

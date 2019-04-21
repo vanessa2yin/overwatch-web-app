@@ -2,55 +2,75 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {Link} from "react-router-dom";
+import fire from '../config/Fire';
+import { withRouter } from 'react-router-dom';
 
-class SignUp extends Component {
-    state = {
-        username: '',
-        password: ''
-    };
-    handleSignIn(e) {
+class SignUpPage extends Component {
+    constructor(props) {
+        super(props);
+        this.signUp = this.signUp.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.state = {
+            email: '',
+            password: '',
+            confirmPassword: ''
+        }
+    }
+
+    signUp(e) {
         e.preventDefault();
-        let username = this.refs.username.value;
-        let password = this.refs.password.value;
-        this.props.onSignIn(username, password)
+        if (this.state.password !== this.state.confirmPassword) {
+            alert("Passwords don't match. ");
+        } else {
+            fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+                this.props.history.push('/');
+            }).catch((error) => {
+                alert(error);
+            });
+        }
+    }
+
+    /**
+     * handle change for input box in the forms
+     * @param e
+     */
+    handleChange(e) {
+        this.setState({ [e.target.name]: e.target.value });
     }
 
     render() {
         return (
             <div>
-                <img src={require('../styles/web_logo.png')} className="logo"/>
+                <img src={require('../styles/web_logo.png')} className="logo" alt="logo"/>
                 <div className="pageContainer">
                     <div className="title"> SIGN UP </div>
                     <Form>
                         <Form.Group>
-                            <Form.Label className="label">Enter a username</Form.Label>
-                            <Form.Control className="inputBox"
-                                          required type="username" id="username" ref="username" placeholder="Username" />
+                            <Form.Label className="label">Enter your email address</Form.Label>
+                            <Form.Control className="inputBox" value={this.state.email} onChange={this.handleChange}
+                                          required type="email" name="email" placeholder="Username" />
                             <Form.Text className="text-muted">
-                                This will also be your name shown on the website.
+                                This will also be your username shown on the website.
                             </Form.Text>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label className="label">Enter new Password</Form.Label>
-                            <Form.Control className="inputBox"
-                                          required type="password" id="password" ref="password" placeholder="Password" />
+                            <Form.Control className="inputBox" value={this.state.password} onChange={this.handleChange}
+                                          required type="password" name="password" placeholder="Password" />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label className="darkLabel">Enter new Password Again</Form.Label>
-                            <Form.Control className="inputBox"
-                                          required type="password" placeholder="Password" />
+                            <Form.Control className="inputBox" value={this.state.confirmPassword} onChange={this.handleChange}
+                                          required type="password" name="confirmPassword" placeholder="Password" />
                             <Form.Text className="text-muted">
                                 This should be the same password you entered above.
                             </Form.Text>
                         </Form.Group>
-                        <Link to="/home">
-                            <Button className="buttons" variant="primary">
-                                Sign Up
-                            </Button>
-                        </Link>
+                        <Button className="buttons" variant="primary" onClick={this.signUp}>
+                            Sign Up
+                        </Button>
                         <Link to="/login">
-                            <Button className="buttons" type="submit" variant="outline-primary"
-                                    onSubmit={this.handleSignIn.bind(this)} >
+                            <Button className="buttons" type="submit" variant="outline-primary">
                                 Cancel
                             </Button>
                         </Link>
@@ -61,4 +81,4 @@ class SignUp extends Component {
     }
 }
 
-export default SignUp;
+export default withRouter(SignUpPage);
