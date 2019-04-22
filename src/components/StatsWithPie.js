@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import WebNavBar from "./WebNavBar";
 import '../styles/StatsPage.css';
 import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+import StatsNavButtons from "./StatsNavButtons";
 import StatsWithTable from "./StatsWithTable";
 
 class StatsPage extends Component {
@@ -12,7 +13,8 @@ class StatsPage extends Component {
             <div>
                 <WebNavBar/>
                 <div className="statsPageTitle"> STATS INFO </div>
-                <StatsWithTable />
+                <StatsNavButtons/>
+                <p>This is pie.</p>
             </div>
         );
     }

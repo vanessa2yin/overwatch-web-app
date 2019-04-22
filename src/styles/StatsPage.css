@@ -6,3 +6,19 @@
     margin: auto;
     text-align: center;
 }
+
+.table {
+    padding: 50px;
+}
+
+.damageRowStyle {
+    background-color: rgba(255,63,63, 0.2);
+}
+
+.supportRowStyle {
+    background-color: rgba(123,216,60, 0.2);
+}
+
+.tankRowStyle {
+    background-color: rgba(255,179,44, 0.2);
+}
