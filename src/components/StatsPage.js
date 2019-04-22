@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import WebNavBar from "./WebNavBar";
 import '../styles/StatsPage.css';
 import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
-import StatsWithTable from "./StatsWithTable";
+import StatsPageTable from "./StatsPageTable";
 
 class StatsPage extends Component {
 
@@ -12,7 +12,8 @@ class StatsPage extends Component {
             <div>
                 <WebNavBar/>
                 <div className="statsPageTitle"> STATS INFO </div>
-                <StatsWithTable />
+                <StatsPageTable />
+                <img src={require('../styles/footer_image.png')} className="footer" alt="footer"/>
             </div>
         );
     }

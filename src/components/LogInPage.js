@@ -16,9 +16,15 @@ class LogInPage extends Component {
         }
     }
 
+
+    /**
+     * check login validation with firebase
+     * @param e form event
+     */
     login(e) {
         e.preventDefault();
         fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+            // must redirect to root path to avoid path error
             this.props.history.push('/');
         }).catch((error) => {
             alert(error);
@@ -26,7 +32,7 @@ class LogInPage extends Component {
     }
 
     /**
-     * handle change for input box in the forms
+     * handle change for input box in the forms and update state info
      * @param e
      */
     handleChange(e) {

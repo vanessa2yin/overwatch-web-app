@@ -17,13 +17,20 @@ class SignUpPage extends Component {
         }
     }
 
+    /**
+     * create new user with firebase
+     * will also make sure password and confirmPassword are the same
+     * @param e form event
+     */
     signUp(e) {
         e.preventDefault();
         if (this.state.password !== this.state.confirmPassword) {
             alert("Passwords don't match. ");
         } else {
             fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+                // must redirect to root path to avoid path error
                 this.props.history.push('/');
+                alert('Welcome! You are signed up with the email: ' + this.state.email);
             }).catch((error) => {
                 alert(error);
             });
@@ -31,7 +38,7 @@ class SignUpPage extends Component {
     }
 
     /**
-     * handle change for input box in the forms
+     * handle change for input box in the forms and update state info
      * @param e
      */
     handleChange(e) {
@@ -67,11 +74,11 @@ class SignUpPage extends Component {
                             </Form.Text>
                         </Form.Group>
                         <Button className="buttons" variant="primary" onClick={this.signUp}>
-                            Sign Up
+                            <i className="fas fa-check"/>{' '}Sign Up
                         </Button>
-                        <Link to="/login">
+                        <Link to="/">
                             <Button className="buttons" type="submit" variant="outline-primary">
-                                Cancel
+                                <i className="fas fa-times"/>{' '} Cancel
                             </Button>
                         </Link>
                     </Form>

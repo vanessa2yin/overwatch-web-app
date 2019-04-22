@@ -4,6 +4,10 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import * as firebase from "firebase";
 
+/**
+ * These are the options to be displayed in the type filter in bootstrap table component
+ * @type {{SUPPORT: string, TANK: string, DAMAGE: string}}
+ */
 const heroTypeOptions = {
     'DAMAGE': 'DAMAGE',
     'TANK': 'TANK',
@@ -22,12 +26,19 @@ class StatsPage extends Component {
 
     /**
      * Fetch all hero data from firebase
+     * have two callbacks: one deal with data and one deal with error
      * This function is only called once after the initial render
      */
     componentDidMount() {
         this.rootRef.on('value', this.gotData, this.errData);
     }
 
+    /**
+     * the callback method when get value from firebase
+     * get values from the database and push attributes into each hero's date field
+     * and then update the table data for bootstrap table component
+     * @param data the whole data get from firebase
+     */
     gotData = (data) => {
         let newTableData = [];
         const heroData = data.val();
@@ -50,11 +61,21 @@ class StatsPage extends Component {
         });
     };
 
+    /**
+     * the callback method when get value from firebase
+     * print error in the console
+     * @param err
+     */
     errData = (err) => {
         console.log(err);
     };
 
-    rowClassNameFormat(rowData) {
+    /**
+     * return appropriate className for styling according to rowData's type data field
+     * @param rowData row data of bootstrap table component
+     * @returns {string} correct className
+     */
+    rowClassNameFormat = (rowData) => {
         if (rowData.type === 'DAMAGE') {
             return 'damageRowStyle'
         }
@@ -64,7 +85,7 @@ class StatsPage extends Component {
         if (rowData.type === 'TANK') {
             return 'tankRowStyle'
         }
-    }
+    };
 
     render() {
 

@@ -5,6 +5,8 @@ import * as firebase from "firebase";
 import Card from 'react-bootstrap/Card';
 import Carousel from 'react-bootstrap/Carousel';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import "react-tabs/style/react-tabs.css";
 import '../styles/IndividualHeroPage.css';
 
 class IndividualHeroPage extends Component {
@@ -13,14 +15,15 @@ class IndividualHeroPage extends Component {
         this.state = {
             heroName: this.props.location.pathname.substring(8),
             data: null
-        }
+        };
+        this.fetchDataFromFirebase();
     }
 
     /**
      * Fetch data from firebase according to the router path param
      * This function is only called once before the initial render
      */
-    componentWillMount() {
+    fetchDataFromFirebase() {
         const rootRef = firebase.database().ref().child('0');
         const heroRef = rootRef.child(this.state.heroName);
         heroRef.on('value', snap => {
@@ -32,23 +35,41 @@ class IndividualHeroPage extends Component {
         });
     }
 
+    /**
+     * Create a list of carousel items using screenshots
+     * @returns {Array} the list of Carousel.Items
+     */
+    createCarousel = () => {
+        let carousels = [];
+        for (let i = 1; i < 4; i++) {
+            let children =
+                (<Carousel.Item>
+                    <img
+                        className="d-block w-100"
+                        src={require(`../images/screenshots/${this.state.heroName}${i}.jpg`)}
+                        alt={`slide ${i}`}
+                    />
+                </Carousel.Item>);
+            carousels.push(children);
+        }
+        return carousels;
+    };
+
     render() {
 
-        const heroName = this.props.location.pathname.substring(8);
         if (!this.state.data) {
             return <div />
-        }
-        return (
-            <div>
-                <WebNavBar/>
-                <h2 className="heroPageTitle">{heroName} </h2>
-                <div className="firstRowContainer">
-                    <Card className="basicStatsContainer">
-                        <Card.Header as="h5" className="firstRowHeader">I N F O</Card.Header>
-                        <Card.Body>
-                            <div>Type: {this.state.data.type}</div>
-                            <div className="separateLine"/>
-                            <Card.Text>
+        } else {
+            return (
+                <div>
+                    <WebNavBar/>
+                    <h2 className="heroPageTitle">{this.state.heroName} </h2>
+                    <div className="firstRowContainer">
+                        <Card className="basicStatsContainer">
+                            <Card.Header as="h5" className="firstRowHeader">I N F O</Card.Header>
+                            <Card.Body>
+                                <div>Type: {this.state.data.type}</div>
+                                <div className="separateLine"/>
                                 <div className="healthShieldArmorRow">
                                     <div>Health: </div>
                                     <div className="healthBox">{this.state.data.health}</div>
@@ -61,68 +82,56 @@ class IndividualHeroPage extends Component {
                                     <div>Armor:</div>
                                     <div className="armorBox">{this.state.data.armor}</div>
                                 </div>
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                    <Carousel className="screenshotsContainer" interval="3000">
-                        <Carousel.Item>
-                            <img
-                                className="d-block w-100"
-                                src={require(`../images/screenshots/${heroName}1.jpg`)}
-                                alt="First picture"
-                            />
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <img
-                                className="d-block w-100"
-                                src={require(`../images/screenshots/${heroName}2.jpg`)}
-                                alt="Second picture"
-                            />
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <img
-                                className="d-block w-100"
-                                src={require(`../images/screenshots/${heroName}3.jpg`)}
-                                alt="Third picture"
-                            />
-                        </Carousel.Item>
-                    </Carousel>
-                    <Card className="bioContainer">
-                        <Card.Header as="h5" className="firstRowHeader">B I O</Card.Header>
-                        <ListGroup>
+                            </Card.Body>
+                        </Card>
+                        <Carousel className="screenshotsContainer" interval="3000">
+                            {this.createCarousel()}
+                        </Carousel>
+                        <Card className="bioContainer">
+                            <Card.Header as="h5" className="firstRowHeader">B I O</Card.Header>
+                            <ListGroup>
+                                {
+                                    Object.keys(this.state.data.bio).map((bioAttribute) =>
+                                        <ListGroup.Item className="listItems">
+                                            {bioAttribute} : {this.state.data.bio[bioAttribute]}
+                                        </ListGroup.Item>
+                                    )
+                                }
+                            </ListGroup>
+                        </Card>
+                    </div>
+
+                    <div className="abilityLine"/>
+
+                    <div className="abilityTitle"> A B I L I T Y </div>
+                    <Tabs className="abilityContainer" selectedTabClassName="tabSelected">
+                        <TabList>
                             {
-                                Object.keys(this.state.data.bio).map((bioAttribute) =>
-                                    <ListGroup.Item className="listItems">
-                                        {bioAttribute} : {this.state.data.bio[bioAttribute]}
-                                    </ListGroup.Item>
+                                Object.keys(this.state.data.abilities).map((abilityName) =>
+                                    <Tab>{abilityName}</Tab>
                                 )
                             }
-                        </ListGroup>
-                    </Card>
-                </div>
-                <div className="abilityContainer">
-                    {
-                        Object.keys(this.state.data.abilities).map((abilityName) =>
-                            <Card>
-                                <Card.Header as="h5"> {abilityName} </Card.Header>
-                                <ListGroup>
+                        </TabList>
+                        {
+                            Object.keys(this.state.data.abilities).map((abilityName) =>
+                                <TabPanel>
                                     {
                                         Object.keys(this.state.data.abilities[abilityName]).map(
                                             (eachAbilityAttribute) =>
-                                            <ListGroup.Item>
-                                                {eachAbilityAttribute} :
-                                                {this.state.data.abilities[abilityName][eachAbilityAttribute]}
-                                            </ListGroup.Item>
+                                                <ListGroup.Item className="listItems">
+                                                    {eachAbilityAttribute} : {' '}
+                                                    {this.state.data.abilities[abilityName][eachAbilityAttribute]}
+                                                </ListGroup.Item>
                                         )
                                     }
-                                </ListGroup>
-                            </Card>
-                        )
-                    }
+                                </TabPanel>
+                            )
+                        }
+                    </Tabs>
+                    <img src={require('../styles/footer_image.png')} className="footer" alt="footer"/>
                 </div>
-
-            </div>
-        );
+            );
+        }
     }
 }
 

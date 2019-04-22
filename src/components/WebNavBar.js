@@ -31,8 +31,13 @@ class WebNavBar extends Component {
         window.location.reload();
     }
 
+    /**
+     * sign out with firebase
+     * @param e form event
+     */
     logout() {
         fire.auth().signOut().then((u) => {
+            // must redirect to root path to avoid path error
             this.props.history.push('/');
         }).catch((error) => {
             console.log(error);
