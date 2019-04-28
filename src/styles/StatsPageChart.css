@@ -1,0 +1,25 @@
+.chartCategoryButtonGroup {
+    position: absolute;
+    left: 50px;
+    top: 350px;
+}
+
+.chartContainer {
+    display: inline-flex;
+    padding: 50px 100px;
+    align-items: center;
+}
+
+.donutChart {
+    display: inline;
+    margin-right:100px;
+}
+
+.barChart {
+    display: inline-block;
+}
+
+.groupButtons {
+    background-color: rgba(255,255,255,0.5);
+    font-weight: lighter;
+}

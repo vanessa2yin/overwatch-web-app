@@ -15,7 +15,7 @@ const heroTypeOptions = {
 };
 
 
-class StatsPage extends Component {
+class StatsPageTable extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -137,4 +137,4 @@ class StatsPage extends Component {
     }
 }
 
-export default StatsPage;
+export default StatsPageTable;
