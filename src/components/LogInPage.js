@@ -28,7 +28,7 @@ class LogInPage extends Component {
             console.log("Logged in");
             this.props.history.push("/heroes");
         }).catch((error) => {
-            swal("Whoops!", error, "error");
+            swal("Whoops!", error.message, "error");
         });
     }
 

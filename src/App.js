@@ -70,10 +70,6 @@ class App extends Component {
         )} />
     );
 
-    var testUser = {
-      email: "Anne@gmail.com"
-    };
-
     return (
         <Router>
           <div>
