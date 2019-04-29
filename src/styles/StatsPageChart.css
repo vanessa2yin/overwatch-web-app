@@ -1,6 +1,6 @@
 .chartCategoryButtonGroup {
     position: absolute;
-    left: 50px;
+    left: 100px;
     top: 350px;
 }
 
@@ -22,4 +22,19 @@
 .groupButtons {
     background-color: rgba(255,255,255,0.5);
     font-weight: lighter;
+}
+
+.groupButtons {
+    background-color: rgba(255,255,255,0.5);
+    font-weight: lighter;
+}
+
+.groupButtons:hover {
+    background-color: rgba(23,24,112,0.2);
+    color: white;
+}
+
+.btn-light:not(:disabled):not(.disabled).active {
+    background-color: rgba(23,24,112,0.5);
+    color: white;
 }

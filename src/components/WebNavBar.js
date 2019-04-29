@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import { withRouter } from 'react-router-dom';
 import Autocomplete from 'react-autocomplete';
 import { heroCategoryList } from '../const.js';
+import swal from 'sweetalert';
 import '../styles/WebNavBar.css';
 import fire from '../config/Fire';
 
@@ -14,10 +15,25 @@ class WebNavBar extends Component {
         super(props);
         this.logout = this.logout.bind(this);
         this.state = {
-            value: ''
-        }
+            value: '',
+            user: this.getUserEmail(),
+        };
     }
 
+    /**
+     * check and get if there is any user info passed from parent component
+     * @returns {string} empty string or user email string
+     */
+    getUserEmail() {
+        let userEmail = '';
+        if (this.props.user != null) {
+            userEmail = this.props.user;
+        }
+        if (this.props.location.state != null && this.props.location.state.user != null) {
+            userEmail = this.props.location.state.user;
+        }
+        return userEmail
+    }
     /**
      * handle search event when the search button is clicked
      * @param e
@@ -27,7 +43,12 @@ class WebNavBar extends Component {
         e.preventDefault();
         console.log("Go to page of " + heroName);
         let path = "/heroes/"+ heroName;
-        this.props.history.push(path);
+        this.props.history.push({
+            pathname: path,
+            state: {
+                user: this.state.user
+            }
+        });
         window.location.reload();
     }
 
@@ -36,12 +57,23 @@ class WebNavBar extends Component {
      * @param e form event
      */
     logout() {
-        fire.auth().signOut().then((u) => {
-            // must redirect to root path to avoid path error
-            this.props.history.push('/');
-        }).catch((error) => {
-            console.log(error);
-        });
+        swal({
+            title: "Logout?",
+            text: "Once logged out, you need to sign in again.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willLogOut) => {
+                if (willLogOut) {
+                    fire.auth().signOut().then((u) => {
+                        // must redirect to root path to avoid path error
+                        console.log("Logged out");
+                        this.props.history.push('/login');
+                    }).catch((error) => {
+                        console.log(error);
+                    });
+                }
+            });
     }
 
     render() {
@@ -94,6 +126,7 @@ class WebNavBar extends Component {
                             <i className="fas fa-search"/>
                         </Button>
                     </Form>
+                    <p className="navBarUsername">{this.state.user}</p>
                     <Button variant="outline-light" onClick={this.logout}>Log Out</Button>
                 </Navbar.Collapse>
             </Navbar>

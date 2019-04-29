@@ -8,7 +8,12 @@ class HeroImageButtons extends Component {
     render() {
         let images = heroList.map(image => {
             return (
-                <Link to={"heroes/"+image}>
+                <Link to={{
+                    pathname: "heroes/" + image,
+                    state: {
+                        user: this.props.user
+                    }
+                }}>
                     <img key={image}
                          src={require(`../images/${image}.png`)}
                          alt={image}

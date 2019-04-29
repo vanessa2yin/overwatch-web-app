@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import {Link} from "react-router-dom";
 import fire from '../config/Fire';
 import { withRouter } from 'react-router-dom';
+import swal from 'sweetalert';
 
 class SignUpPage extends Component {
     constructor(props) {
@@ -25,14 +26,14 @@ class SignUpPage extends Component {
     signUp(e) {
         e.preventDefault();
         if (this.state.password !== this.state.confirmPassword) {
-            alert("Passwords don't match. ");
+            swal("Whoops!", "Passwords don't match. ", "error");
         } else {
             fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
-                // must redirect to root path to avoid path error
-                this.props.history.push('/');
-                alert('Welcome! You are signed up with the email: ' + this.state.email);
+                console.log("Signed up");
+                this.props.history.push('/heroes');
+                swal("Welcome!", "You are signed up with the email: " + this.state.email, "success");
             }).catch((error) => {
-                alert(error);
+                swal("Whoops!", error.message, "error");
             });
         }
     }
@@ -76,7 +77,7 @@ class SignUpPage extends Component {
                         <Button className="buttons" variant="primary" onClick={this.signUp}>
                             <i className="fas fa-check"/>{' '}Sign Up
                         </Button>
-                        <Link to="/">
+                        <Link to="/login">
                             <Button className="buttons" type="submit" variant="outline-primary">
                                 <i className="fas fa-times"/>{' '} Cancel
                             </Button>

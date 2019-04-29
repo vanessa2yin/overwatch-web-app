@@ -21,7 +21,7 @@ class StatsPageTable extends Component {
         this.state = {
             tableData: []
         };
-        this.rootRef = firebase.database().ref().child('0');
+        this.rootRef = firebase.database().ref('hero');
     }
 
     /**

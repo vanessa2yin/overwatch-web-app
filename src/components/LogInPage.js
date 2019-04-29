@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import '../styles/LogInPage_SignUpPage.css';
 import fire from '../config/Fire';
+import swal from 'sweetalert';
 
 class LogInPage extends Component {
     constructor(props) {
@@ -24,10 +25,10 @@ class LogInPage extends Component {
     login(e) {
         e.preventDefault();
         fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
-            // must redirect to root path to avoid path error
-            this.props.history.push('/');
+            console.log("Logged in");
+            this.props.history.push("/heroes");
         }).catch((error) => {
-            alert(error);
+            swal("Whoops!", error, "error");
         });
     }
 

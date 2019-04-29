@@ -5,6 +5,7 @@ import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.
 import StatsPageTable from "./StatsPageTable";
 import StatsPageChart from "./StatsPageChart";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { withRouter } from 'react-router-dom';
 
 class StatsPage extends Component {
 
@@ -12,7 +13,7 @@ class StatsPage extends Component {
 
         return (
             <div>
-                <WebNavBar/>
+                <WebNavBar user={this.props.user}/>
                 <div className="statsPageTitle"> STATS INFO </div>
                 <Tabs className="abilityContainer" selectedTabClassName="tabSelected">
                     <TabList>
@@ -32,4 +33,4 @@ class StatsPage extends Component {
     }
 }
 
-export default StatsPage;
+export default withRouter(StatsPage);

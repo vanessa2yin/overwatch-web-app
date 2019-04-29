@@ -78,13 +78,13 @@
     font-weight: bold;
 }
 
-.abilityLine {
+.sectionLine {
     margin: 50px 50px 0 50px;
     height: 1px;
     background-color: rgba(0,0,0,0.2);
 }
 
-.abilityTitle {
+.sectionTitle {
     font-size: 20px;
     font-weight: bold;
     text-align: center;
@@ -102,4 +102,66 @@
     border-radius: 15px 15px 0px 0px;
     background-color: rgba(255,255,255,0.5);
     font-weight: bold;
+}
+
+.commentForm {
+    padding: 0 100px;
+}
+
+.formGroup {
+    padding-top: 30px;
+}
+
+.seperateLineAboveCommentCount {
+    margin: 50px 100px 0 100px;
+    height: 1px;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.commentCount {
+    padding: 10px 0 20px 100px;
+    font-weight: bold;
+}
+
+.postButton {
+    padding: 5px 100px;
+    background-color: rgba(255,255,255,0.5);
+    font-weight: lighter;
+}
+
+.postButton:hover {
+    padding: 5px 100px;
+    background-color: rgba(23,24,112,0.3);
+    color: white;
+}
+
+.comments {
+    padding: 0 100px;
+}
+
+.EachCommentPostedContainer {
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 10px;
+}
+
+.commentTitle {
+    font-size: 20px;
+}
+
+.commentEmail {
+    color: grey;
+    font-size: 14px;
+    font-weight: lighter;
+}
+
+.commentContext {
+    font-weight: lighter;
+    padding-left: 10px;
+}
+
+.commentIndex {
+    float: right;
+    color: grey;
 }

@@ -6,3 +6,9 @@
     width: 200px;
     height: 15px;
 }
+
+.navBarUsername {
+    margin: 10px;
+    color: white;
+    font-weight: lighter;
+}
